@@ -1,0 +1,2 @@
+jsonwebtoken: Library for generating and verifying JWT.
+dotenv: For environment variable management.
