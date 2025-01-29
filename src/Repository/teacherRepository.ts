@@ -1,36 +1,33 @@
-import { Teacher, teachers } from "../Utility/Interface/teacher";
+import { InferCreationAttributes } from "sequelize";
+import { TeacherModal } from "../Modal/Teacher"
 
 export default class TeacherRepository {
   constructor() {
   }
-
-  findAll = async (): Promise<Teacher[]> => {
-    return teachers;
+  // Create a new teacher
+  createTeacher = async (data: Partial<TeacherModal>) => {
+    const teacher = await TeacherModal.create(data);
+    return teacher;
   }
 
-  findById = async (id: number): Promise<Teacher | undefined> => {
-    return teachers.find((teacher) => teacher.id === id);
+  // Get all teachers
+  getAllTeachers = async () => {
+    return await TeacherModal.findAll();
   }
 
-  create = async (data: Teacher): Promise<Teacher> => {
-    const newTeacher = { ...data, id: teachers.length + 1 };
-    teachers.push(newTeacher);
-    return newTeacher;
+  // Get a teacher by ID
+  getTeacherById = async (id: number) => {
+    const teacher = await TeacherModal.findByPk(id);
+    return teacher;
   }
 
-  update = async (id: number, data: Partial<Teacher>): Promise<Teacher | undefined> => {
-    const index = teachers.findIndex((teacher) => teacher.id === id);
-    if (index === -1) return undefined;
-
-    teachers[index] = { ...teachers[index], ...data };
-    return teachers[index];
+  // Update a teacher
+  updateTeacher = async (id: number, data: TeacherModal) => {
+    return await TeacherModal.update(data, { where: { id } });
   }
 
-  delete = async (id: number): Promise<boolean> => {
-    const index = teachers.findIndex((teacher) => teacher.id === id);
-    if (index === -1) return false;
-
-    teachers.splice(index, 1);
-    return true;
+  // Delete a teacher
+  deleteTeacher = async (id: number) => {
+    return await TeacherModal.destroy({ where: { id } });
   }
 }

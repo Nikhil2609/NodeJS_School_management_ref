@@ -13,10 +13,38 @@ const teacherRepository: TeacherRepository = new TeacherRepository();
 const teacherService: TeacherService = new TeacherService(teacherRepository);
 const teacherController: TeacherController = new TeacherController(teacherService);
 
-teacherRouter.get("/", authenticateToken, teacherController.getAllTeachers)
-teacherRouter.get("/:id", celebrate(GetTeacher), teacherController.getTeacherById)
-teacherRouter.post("/", celebrate(CreateTeacher), teacherController.createTeacher)
-teacherRouter.put("/", celebrate(UpdateTeacher), teacherController.updateTeacher)
-teacherRouter.delete("/:id", celebrate(DeleteTeacher), teacherController.deleteTeacher)
+// get teacher list
+teacherRouter.get(
+    "/",
+    teacherController.getAllTeachers
+);
+
+// get teacher by id
+teacherRouter.get(
+    "/:id",
+    celebrate(GetTeacher),
+    teacherController.getTeacherById
+);
+
+// create teacher
+teacherRouter.post(
+    "/",
+    celebrate(CreateTeacher),
+    teacherController.createTeacher
+)
+
+// update teacher
+teacherRouter.put(
+    "/:id",
+    celebrate(UpdateTeacher),
+    teacherController.updateTeacher
+)
+
+// delete teacher
+teacherRouter.delete(
+    "/:id",
+    celebrate(DeleteTeacher),
+    teacherController.deleteTeacher
+);
 
 export default teacherRouter;

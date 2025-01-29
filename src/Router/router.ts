@@ -7,7 +7,7 @@ import loginRoute from "./loginRoutes";
 const router = express.Router();
 
 router.use("/login", loginRoute)
-router.use("/teacher", authenticateToken, teacherRouter);
-router.use("/student", studentRouter);
+router.use("/teachers", authenticateToken, teacherRouter);
+router.use("/students", studentRouter);
 
 export default router;
