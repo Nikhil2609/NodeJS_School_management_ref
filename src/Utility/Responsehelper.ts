@@ -18,3 +18,14 @@ export const sendResponse = (response: Response, statusCode: number = 200, data:
 
     return response.status(statusCode).json(responseJson);
 }
+
+export const sendErrorResponse = (response: Response, statusCode: number = 404, errorMessage: string) => {
+    let responseJson: ApiResponse = {} as ApiResponse;
+
+    responseJson = {
+        ...responseJson,
+        errorMessage: errorMessage
+    }
+
+    return response.status(statusCode).json(responseJson);
+}
