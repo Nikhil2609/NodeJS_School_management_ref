@@ -6,6 +6,8 @@ import { celebrateErrorHandler, errorHandler, requestLogger } from "./Middleware
 
 const app = express();
 import dotenv from 'dotenv';
+import { databaseConnect } from './Modal/db';
+import { HTTP_STATUS_CODE } from './Utility/Enum';
 dotenv.config();
 
 
@@ -14,6 +16,14 @@ app.use(express.json()); // middleware : pass request body into json format
 
 // routing middleware
 app.use("/api", router);
+
+// no match route found "*" middleware handle not unmatched path
+app.use("*", (req, res) =>
+    res.status(HTTP_STATUS_CODE.NOT_FOUND).json({ errorMessage: "No match route found" })
+)
+
+// database connection
+databaseConnect()
 
 // Celebrate Error Handler (user inputs validations)
 // app.use(errors());  // default error handler function with default response structure
