@@ -4,9 +4,8 @@ export const teacherSchema = {
     CreateTeacher: {
         body: {
             name: Joi.string().min(3).max(50).required(),
-            subject: Joi.string().min(3).required(),
-            age: Joi.number().min(18).max(70).required(),
-            fatherName: Joi.string().allow(null).optional(),
+            email: Joi.string().required().email(),
+            subject: Joi.string().required(),
         },
     },
     UpdateTeacher: {
@@ -15,9 +14,8 @@ export const teacherSchema = {
         },
         body: {
             name: Joi.string().min(3).max(50).required(),
-            subject: Joi.string().min(3).required(),
-            age: Joi.number().min(18).max(70).required(),
-            fatherName: Joi.string().allow(null).optional(),
+            email: Joi.string().required().email(),
+            subject: Joi.string().required(),
         },
     },
     DeleteTeacher: {
